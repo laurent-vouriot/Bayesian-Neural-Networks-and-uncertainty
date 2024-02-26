@@ -11,8 +11,10 @@ In bayesian inference we try to compute $p(w | D_{train})$, the conditional dist
 Thanks to Bayes' rule we can compute the posterior : 
 
 ```math
+\begin{align*}
     p(w | D) & = \frac{p(D | w)p(w)}{p(D)}\\
              & = \frac{p(D | w)p(w)}{\int_w' p(D | w')p(w')} \\
+\end{align*}
 ``` 
 
 With $\hat{y}$ the predicted output as a function of the input $x$, The posterior distribution over the weights allows us to compute the __predictive distribution__ : 
