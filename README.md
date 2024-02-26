@@ -118,21 +118,6 @@ from tensorflow.keras.layers import Dense, BatchNormalization, Dropout
 
 import tensorflow_probability as tfp
 from tensorflow_probability import distributions as tfd
-```
-
-    /tmp/ipykernel_248090/2317591137.py:3: DeprecationWarning: 
-    Pyarrow will become a required dependency of pandas in the next major release of pandas (pandas 3.0),
-    (to allow more performant data types, such as the Arrow string type, and better interoperability with other libraries)
-    but was not found to be installed on your system.
-    If this would cause problems for you,
-    please provide us feedback at https://github.com/pandas-dev/pandas/issues/54466
-            
-      import pandas as pd
-    2024-02-21 17:37:58.109927: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
-    2024-02-21 17:37:58.110015: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
-    2024-02-21 17:37:58.114070: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
-    2024-02-21 17:37:59.802291: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
-
 
 # Dataset
 
@@ -159,9 +144,7 @@ ax2.set_title('test set')
 plt.show()
 ```
 
-
-    
-![png](output_8_0.png)
+![png](figs/output_8_0.png)
     
 
 
@@ -277,10 +260,11 @@ Aleatoric uncertainty refers to the notion of randomness, That is the uncertaint
 
 To allow a model to capture the aleatoric uncertainty we will output not a point estimate as usual but a probability distribution. In the case of binary classification the output will be a bernoulli distribution. 
 
+```math
 $
     \mathbb{P}(X = x) = p^x(1 - p)^{1-x},\;\; x \in [0, 1]
 $
-
+```
 As the output is no more a single estimate we need to change the loss function, we will use the **negative loglieklihood**, in order to get how likely it is to encounter targets in our data from the estimated distribution of the model.
 
 
@@ -403,7 +387,7 @@ plt.tight_layout()
 
 
     
-![png](output_20_1.png)
+![png](figs/output_20_1.png)
     
 
 
@@ -1683,7 +1667,7 @@ plt.tight_layout()
 
 
     
-![png](output_43_1.png)
+![png](figs/output_43_1.png)
     
 
 
@@ -6222,7 +6206,7 @@ plt.title('small train set')
 
 
     
-![png](output_46_1.png)
+![png](figs/output_46_1.png)
     
 
 
@@ -6256,7 +6240,7 @@ plt.tight_layout()
 
 
     
-![png](output_47_1.png)
+![png](figs/output_47_1.png)
     
 
 
@@ -6278,7 +6262,7 @@ plt.scatter(X, y)
 
 
     
-![png](output_49_1.png)
+![png](figs/output_49_1.png)
     
 
 
@@ -10480,6 +10464,6 @@ plt.savefig('figs/epistemic_uncertainty_rgn.png')
 
 
     
-![png](output_57_0.png)
+![png](figs/output_57_0.png)
     
 
