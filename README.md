@@ -9,18 +9,19 @@ In bayesian inference we try to compute $p(w | D_{train})$, the conditional dist
 ### Exact Bayesian Inference
 
 Thanks to Bayes' rule we can compute the posterior : 
-$
+```math
 \begin{align*}
     p(w | D) & = \frac{p(D | w)p(w)}{p(D)}\\
              & = \frac{p(D | w)p(w)}{\int_w' p(D | w')p(w')} \\
 \end{align*}
-$
+```
 With $\hat{y}$ the predicted output as a function of the input $x$, The posterior distribution over the weights allows us to compute the __predictive distribution__ : 
-$
+
+```math
 \begin{align*}
     p(\hat{y}(x) | D) = \int_w p(\hat{y}(x) | w) p(w | D) dw = \mathbb{E}_{p(w | D)} [p(\hat{y}(x) | w)]
 \end{align*}
-$
+```
 which can be useful to describe the epistemic uncertainty of our model. We will come back later on the uncertainty.
 
 Computing the posterior in this way can be called *exact inference*, and needs the *prior* $p(w)$ and the *likelihood* $p(D | w)$ of the data. Unfortunately in the expression of the posterior and the predictive distribution we need to integrate over the weight space which can be intractable, in order to adresses theses issues we use a set of tools that allow us to do approximate inference. There is two family of approximate inference methods : sampling and variational, we will focus on variational methods.
@@ -36,18 +37,18 @@ The spirit of variational inference is, when facing an intractable posterior $p(
 ### Measure of similarity : 
 
 The Kullback-Liebler divergence is a metric that allows us to mesure the similiarity between two distribution. it is defined by the expectation of the log ratio between the two distributions : 
-$
+```math
 \begin{align*}
     D_{KL}(P \| Q) = \mathbb{E} \left[log \frac{P}{Q}\right]
 \end{align*}
-$
+```
 in our case : 
-$
+```math
 \begin{align*}
     D_{KL} (q_{\phi}(w) \| p(w | D)) & = \mathbb{E}_{q_{\phi}(w)}\left[log \frac{q_{\phi}(w)}{p(w |D)} \right] \\
                                     & = \int_w q_\phi (w) log \frac{q_\phi (w)}{p(w |D)}
 \end{align*}
-$
+```
 
 The KL divergence is a non-negative measure of similarity, that is 0 for identical distributions
 ... 
@@ -58,20 +59,20 @@ We have an intractable posterior $p(w | W)$, a surrogate distribution $q_{\phi}(
 
 Directly minimizing  $D_{KL} (q_{\phi}(w) \| p(w | D))$ is 
 difficult as $p(w | D)$ is still intractable. To bypass this we will derive a related quantity, equal to the KL divergence plus a constant, that will be our new objective.
-$
+```math
 \begin{align*}
     D_{KL} (q_{\phi}(w) \| p(w | D)) & = \mathbb{E}_{q_{\phi}(w)}\left[log \frac{q_{\phi}(w)}{p(w |D)} \right] \\
                                      & = \mathbb{E}_{q_{\phi}(w)}\left[log(q_{\phi}(w)) - log (p(w |D)) \right] \\
                                      & = \mathbb{E}_{q_{\phi}(w)}\left[log(q_{\phi}(w))\right] - \mathbb{E}_{q_{\phi}(w)}\left[log (p(D, w)) - log (p(D)) \right] \\        
                                      & = \mathbb{E}_{q_{\phi}(w)}\left[log(q_{\phi}(w))\right] - \mathbb{E}_{q_{\phi}(w)}\left[log (p(D, w))\right] + log p(D)\\                   
 \end{align*}
-$
+```
 thus 
-$
+```math
 \begin{align*} 
     log p(D) \geq \mathbb{E}_{q_{\phi}(w)}\left[log q_{\phi}(w) - log p(w, D)\right] \;\;\;\;\;\;\;\; \;\;\;\;\;\;\;\;\; [\small{\text{as}\;\;\; D_{KL}(q \| p) \geq 0}]
 \end{align*}
-$
+```
 ## Make it work with neural networks.
 ### bayes by backprop
 
@@ -81,11 +82,11 @@ In bayesian neural networks, it is challenging to differentiate random nodes. To
 
 More formally, considering a gaussian posterior distribution $q_{\phi}(z|x)$, parametrized by $\mu$ and $\sigma$. say we want to minimize a loss function $E_{q_{\phi}(z | x)} [f(z))]$. 
 Directly optimizing this expectation with respect to $\phi$ can be difficult due to its randomness in z complicating the computation of gradients. To overcome this we introduce an auxilary variable $\epsilon$ drawn from a distribution $p(\epsilon)$ independent from $\phi$ allowing us to express z as a deterministic function of $\phi$ and $\sigma$ such as $z = g_{\phi}(\epsilon, x) = \mu(x; \mu) + \sigma(w, \phi) \otimes \epsilon$. Typically $\epsilon$ is drawn from Gaussian ditribution $\epsilon \sim \mathcal{N}(0, I)$. Thus the expectation turns into : 
-$
+```math
 \begin{align*}
     \nabla_{\phi} E_{p(\epsilon)}[f(g_{\phi}(\epsilon, x))] &= E_{p(\epsilon)}[ \nabla_{\phi} f(g_{\phi}(\epsilon, x))] 
 \end{align*} 
-$
+```math
 # Import, data and utils functions 
 
 
