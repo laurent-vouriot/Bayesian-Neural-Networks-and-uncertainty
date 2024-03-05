@@ -9,18 +9,18 @@ In bayesian inference we try to compute $p(w | D_{train})$, the conditional dist
 ### Exact Bayesian Inference
 
 Thanks to Bayes' rule we can compute the posterior : 
-
+$$
 \begin{align*}
     p(w | D) & = \frac{p(D | w)p(w)}{p(D)}\\
              & = \frac{p(D | w)p(w)}{\int_w' p(D | w')p(w')} \\
 \end{align*}
-
+$$
 With $\hat{y}$ the predicted output as a function of the input $x$, The posterior distribution over the weights allows us to compute the __predictive distribution__ : 
-
+$$
 \begin{align*}
     p(\hat{y}(x) | D) = \int_w p(\hat{y}(x) | w) p(w | D) dw = \mathbb{E}_{p(w | D)} [p(\hat{y}(x) | w)]
 \end{align*}
-
+$$
 which can be useful to describe the epistemic uncertainty of our model. We will come back later on the uncertainty.
 
 Computing the posterior in this way can be called *exact inference*, and needs the *prior* $p(w)$ and the *likelihood* $p(D | w)$ of the data. Unfortunately in the expression of the posterior and the predictive distribution we need to integrate over the weight space which can be intractable, in order to adresses theses issues we use a set of tools that allow us to do approximate inference. There is two family of approximate inference methods : sampling and variational, we will focus on variational methods.
@@ -36,11 +36,11 @@ The spirit of variational inference is, when facing an intractable posterior $p(
 ### Measure of similarity : 
 
 The Kullback-Liebler divergence is a metric that allows us to mesure the similiarity between two distribution. it is defined by the expectation of the log ratio between the two distributions : 
-
+$$
 \begin{align*}
     D_{KL}(P \| Q) = \mathbb{E} \left[log \frac{P}{Q}\right]
 \end{align*}
-
+$$
 in our case : 
 $$
 \begin{align*}
